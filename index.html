@@ -31,11 +31,9 @@
     .nav button{border:0;background:transparent;color:#465a71;padding:9px 12px;border-radius:8px}
     .nav button.active{background:#eaf2fa;color:var(--blue);font-weight:800}
     .shell{max-width:1320px;margin:auto;padding:26px}
-    .hero{border-radius:24px;background:linear-gradient(120deg,#153b63 0%,#245b8a 58%,#7b2139 125%);color:white;padding:44px;min-height:280px;display:flex;justify-content:space-between;align-items:center;gap:32px;box-shadow:var(--shadow)}
+    .hero{border-radius:24px;background:linear-gradient(120deg,#153b63 0%,#245b8a 58%,#7b2139 125%);color:white;padding:44px;min-height:280px;display:flex;justify-content:flex-start;align-items:center;gap:32px;box-shadow:var(--shadow)}
     .hero h1{font-family:Georgia,serif;font-size:46px;line-height:1.05;margin:9px 0 13px}
     .hero p{max-width:700px;color:#e7edf5;font-size:17px;line-height:1.6}
-    .heroaside{width:270px;padding:20px;border-radius:18px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(6px)}
-    .heroaside b{display:block;font-size:31px}
     .badge{display:inline-flex;align-items:center;border-radius:999px;background:#edf4fa;color:var(--blue);padding:5px 9px;font-size:12px;font-weight:800}
     .hero .badge{background:rgba(255,255,255,.14);color:white}
     .section{margin-top:28px}
@@ -76,7 +74,7 @@
     .field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfdff}
     .field textarea{min-height:105px}
     .footer{margin-top:35px;padding:24px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
-    @media(max-width:980px){.grid5{grid-template-columns:repeat(2,1fr)}.grid4,.grid3,.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.hero{padding:30px}.hero h1{font-size:38px}.heroaside{display:none}.sidebar{display:none}}
+    @media(max-width:980px){.grid5{grid-template-columns:repeat(2,1fr)}.grid4,.grid3,.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.hero{padding:30px}.hero h1{font-size:38px}.sidebar{display:none}}
     @media(max-width:600px){.shell{padding:15px}.brandrow{padding:12px 15px}.nav{padding:0 15px 10px}.search{display:none}.grid5,.grid4,.grid3,.stats{grid-template-columns:1fr}.hero{padding:25px;min-height:220px}.hero h1{font-size:32px}.evidence{padding:7px 12px}}
   </style>
 </head>
@@ -129,7 +127,7 @@ function renderNav(){
 function hero(){
   const title=mode==='faculty'?'Facultad de Ciencias Sociales':'Escuela Profesional de '+school;
   const subtitle=mode==='faculty'?'Formación con identidad, compromiso social y visión de futuro.':'Micrositio académico con navegación propia y contenidos administrables.';
-  return '<section class="hero"><div><span class="badge">'+(mode==='faculty'?'Portal institucional':'Escuela profesional')+'</span><h1>'+title+'</h1><p>'+subtitle+'</p>'+(mode==='school'?'<button class="btn" onclick="backFaculty()">← Volver a Facultad</button>':'')+'</div><div class="heroaside"><small>Versión navegable</small><b>MVP</b><p style="margin:5px 0 0;font-size:14px">Valida estructura, módulos y flujos antes del desarrollo completo.</p></div></section>';
+  return '<section class="hero"><div><span class="badge">'+(mode==='faculty'?'Portal institucional':'Escuela profesional')+'</span><h1>'+title+'</h1><p>'+subtitle+'</p>'+(mode==='school'?'<button class="btn" onclick="backFaculty()">← Volver a Facultad</button>':'')+'</div></section>';
 }
 function schoolCards(){
   return '<div class="grid5">'+schools.map(s=>'<div class="card click" onclick="enterSchool(\''+s[0]+'\')"><div class="schoolicon">'+s[0].slice(0,2).toUpperCase()+'</div><h3>'+s[0]+'</h3><p>'+s[1]+'</p></div>').join('')+'</div>';
