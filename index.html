@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>MVP predesarrollo · Portal FCS UNT</title>
+  <style>
+    :root{
+      --ink:#14243a;--muted:#64748b;--line:#dbe4ee;--bg:#eef3f8;--white:#fff;
+      --blue:#153b63;--blue2:#245b8a;--wine:#7b2139;--gold:#c79a48;--teal:#2f7d6b;
+      --soft:#f7f9fc;--shadow:0 18px 46px rgba(24,48,78,.10)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .evidence{background:#0f2947;color:#dceaf7;padding:8px 24px;font-size:12px;letter-spacing:.04em;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .evidence strong{color:white}
+    .header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+    .brandrow{display:flex;align-items:center;justify-content:space-between;padding:15px 26px;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .crest{width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,var(--wine),#a83b58);display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:0 8px 18px rgba(123,33,57,.18)}
+    .brand b{display:block;font-size:15px}.brand small{color:var(--muted)}
+    .tools{display:flex;gap:8px;align-items:center}
+    .search{border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:230px;background:#fafcff}
+    .btn{border:1px solid var(--line);border-radius:10px;padding:9px 13px;background:white;color:var(--ink)}
+    .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+    .nav{display:flex;gap:5px;padding:0 26px 11px;flex-wrap:wrap}
+    .nav button{border:0;background:transparent;color:#465a71;padding:9px 12px;border-radius:8px}
+    .nav button.active{background:#eaf2fa;color:var(--blue);font-weight:800}
+    .shell{max-width:1320px;margin:auto;padding:26px}
+    .hero{border-radius:24px;background:linear-gradient(120deg,#153b63 0%,#245b8a 58%,#7b2139 125%);color:white;padding:44px;min-height:280px;display:flex;justify-content:space-between;align-items:center;gap:32px;box-shadow:var(--shadow)}
+    .hero h1{font-family:Georgia,serif;font-size:46px;line-height:1.05;margin:9px 0 13px}
+    .hero p{max-width:700px;color:#e7edf5;font-size:17px;line-height:1.6}
+    .heroaside{width:270px;padding:20px;border-radius:18px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(6px)}
+    .heroaside b{display:block;font-size:31px}
+    .badge{display:inline-flex;align-items:center;border-radius:999px;background:#edf4fa;color:var(--blue);padding:5px 9px;font-size:12px;font-weight:800}
+    .hero .badge{background:rgba(255,255,255,.14);color:white}
+    .section{margin-top:28px}
+    .sectionhead{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:13px}
+    .sectionhead h2{margin:0;font-size:25px}.sectionhead p{margin:3px 0 0;color:var(--muted)}
+    .grid5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+    .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(24,48,78,.05)}
+    .card.click{transition:.18s;cursor:pointer}.card.click:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(24,48,78,.10)}
+    .schoolicon{width:42px;height:42px;border-radius:12px;background:#edf4fa;color:var(--blue);display:grid;place-items:center;font-weight:900;margin-bottom:17px}
+    .card h3{margin:0 0 6px}.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+    .list{display:grid;gap:12px}.item{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;align-items:flex-start}
+    .thumb{width:86px;height:66px;border-radius:10px;background:linear-gradient(135deg,#dce8f4,#f2dde4);flex:none}
+    .item h4{margin:3px 0 5px}.item small{color:var(--muted)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+    .tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px}
+    .tabs button.active{background:var(--blue);border-color:var(--blue);color:white}
+    .panel{display:none}.panel.show{display:block}
+    .infobox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;line-height:1.65}
+    .infobox h3{margin-top:0}
+    .status{padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800}.pub{background:#e8f6ef;color:#26715a}.draft{background:#fff3da;color:#876300}.pending{background:#efeafd;color:#6545a4}
+    .admin{display:none;min-height:100vh;background:#f4f7fb}.admin.show{display:flex}
+    .sidebar{width:258px;background:#102844;color:#fff;padding:24px 16px;position:sticky;top:0;height:100vh}
+    .sidebar small{color:#abc0d5}.sidenav{display:grid;gap:5px;margin-top:24px}
+    .sidenav button{background:transparent;border:0;color:#d0dbe7;text-align:left;padding:10px 12px;border-radius:9px}
+    .sidenav button.active{background:#23496f;color:#fff}
+    .adminmain{flex:1;padding:28px;max-width:1200px}
+    .admintop{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px}.stat b{display:block;font-size:28px}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+    th,td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}th{background:#f8fafc;color:#53657b}
+    .notice{background:#fff8e8;border:1px solid #eed38e;padding:12px 14px;border-radius:11px;color:#6b551e;font-size:13px;margin-bottom:15px}
+    .form{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px}
+    .field{margin-bottom:13px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
+    .field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfdff}
+    .field textarea{min-height:105px}
+    .footer{margin-top:35px;padding:24px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+    @media(max-width:980px){.grid5{grid-template-columns:repeat(2,1fr)}.grid4,.grid3,.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.hero{padding:30px}.hero h1{font-size:38px}.heroaside{display:none}.sidebar{display:none}}
+    @media(max-width:600px){.shell{padding:15px}.brandrow{padding:12px 15px}.nav{padding:0 15px 10px}.search{display:none}.grid5,.grid4,.grid3,.stats{grid-template-columns:1fr}.hero{padding:25px;min-height:220px}.hero h1{font-size:32px}.evidence{padding:7px 12px}}
+  </style>
+</head>
+<body>
+<div id="publicApp">
+  <div class="evidence"><span><strong>Reconstrucción funcional</strong> del MVP de predesarrollo · evidencia académica</span><span>Portal FCS UNT</span></div>
+  <header class="header">
+    <div class="brandrow">
+      <div class="brand"><div class="crest">UNT</div><div><b id="brandTitle">Facultad de Ciencias Sociales</b><small id="brandSub">Universidad Nacional de Trujillo</small></div></div>
+      <div class="tools"><input id="searchBox" class="search" placeholder="Buscar en el portal..."><button class="btn" onclick="searchNow()">Buscar</button><button class="btn primary" onclick="openAdmin()">Panel admin</button></div>
+    </div>
+    <nav id="mainNav" class="nav"></nav>
+  </header>
+  <main class="shell"><div id="screen"></div><div class="footer">MVP estático de predesarrollo. Datos ficticios y fines de validación visual/funcional.</div></main>
+</div>
+
+<div id="adminApp" class="admin">
+  <aside class="sidebar">
+    <h3 style="margin:0">FCS UNT</h3><small>MVP de administración</small>
+    <div id="sideNav" class="sidenav"></div>
+    <button class="btn" style="margin-top:22px;width:100%" onclick="closeAdmin()">Volver al portal</button>
+  </aside>
+  <main class="adminmain">
+    <div class="admintop">
+      <div><h2 id="adminTitle" style="margin:0">Resumen</h2><small style="color:var(--muted)">Vista funcional de predesarrollo</small></div>
+      <select id="scope" class="btn" onchange="renderAdmin()"><option>Facultad</option><option>Antropología</option><option>Arqueología</option><option>Historia</option><option>Trabajo Social</option><option>Turismo</option></select>
+    </div>
+    <div id="adminContent"></div>
+  </main>
+</div>
+
+<script>
+const schools=[
+  ['Antropología','Diversidad humana y cultural'],
+  ['Arqueología','Patrimonio y pasado social'],
+  ['Historia','Memoria, investigación y sociedad'],
+  ['Trabajo Social','Intervención y bienestar social'],
+  ['Turismo','Gestión sostenible del patrimonio']
+];
+const facultyNav=['Inicio','La Facultad','Formación','Actualidad','Comunidad'];
+const schoolNav=['Inicio','La Escuela','Formación','Actualidad','Comunidad'];
+const adminTabs=['Resumen','Noticias','Eventos','Oportunidades','Documentos','Investigación','Convenios','Egresados','Identidad y recursos','Difusión'];
+let mode='faculty', school='', current='Inicio', adminTab='Resumen';
+
+function navs(){return mode==='faculty'?facultyNav:schoolNav}
+function renderNav(){
+  const n=document.getElementById('mainNav');n.innerHTML='';
+  navs().forEach(x=>{const b=document.createElement('button');b.textContent=x;b.className=x===current?'active':'';b.onclick=()=>{current=x;renderNav();render()};n.appendChild(b)})
+}
+function hero(){
+  const title=mode==='faculty'?'Facultad de Ciencias Sociales':'Escuela Profesional de '+school;
+  const subtitle=mode==='faculty'?'Formación con identidad, compromiso social y visión de futuro.':'Micrositio académico con navegación propia y contenidos administrables.';
+  return '<section class="hero"><div><span class="badge">'+(mode==='faculty'?'Portal institucional':'Escuela profesional')+'</span><h1>'+title+'</h1><p>'+subtitle+'</p>'+(mode==='school'?'<button class="btn" onclick="backFaculty()">← Volver a Facultad</button>':'')+'</div><div class="heroaside"><small>Versión navegable</small><b>MVP</b><p style="margin:5px 0 0;font-size:14px">Valida estructura, módulos y flujos antes del desarrollo completo.</p></div></section>';
+}
+function schoolCards(){
+  return '<div class="grid5">'+schools.map(s=>'<div class="card click" onclick="enterSchool(\''+s[0]+'\')"><div class="schoolicon">'+s[0].slice(0,2).toUpperCase()+'</div><h3>'+s[0]+'</h3><p>'+s[1]+'</p></div>').join('')+'</div>';
+}
+function enterSchool(name){
+  mode='school';school=name;current='Inicio';
+  document.getElementById('brandTitle').textContent='Escuela Profesional de '+name;
+  document.getElementById('brandSub').textContent='Facultad de Ciencias Sociales · UNT';
+  renderNav();render();
+}
+function backFaculty(){
+  mode='faculty';school='';current='Inicio';
+  document.getElementById('brandTitle').textContent='Facultad de Ciencias Sociales';
+  document.getElementById('brandSub').textContent='Universidad Nacional de Trujillo';
+  renderNav();render();
+}
+function facultyHome(){
+  return hero()+
+  '<section class="section"><div class="sectionhead"><div><h2>Nuestras Escuelas Profesionales</h2><p>Acceso prioritario a los cinco micrositios.</p></div></div>'+schoolCards()+'</section>'+
+  '<section class="section"><div class="sectionhead"><div><h2>Accesos importantes</h2><p>Funciones necesarias en la primera versión funcional.</p></div></div><div class="grid4">'+
+  '<div class="card"><span class="badge">Noticias</span><h3>Actualidad institucional</h3><p>Publicaciones de Facultad y Escuelas con origen visible.</p></div>'+
+  '<div class="card"><span class="badge">Eventos</span><h3>Agenda académica</h3><p>Eventos vigentes con fecha, hora y ubicación.</p></div>'+
+  '<div class="card"><span class="badge">Oportunidades</span><h3>Convocatorias</h3><p>Prácticas, becas y oportunidades para la comunidad.</p></div>'+
+  '<div class="card"><span class="badge">Investigación</span><h3>Producción académica</h3><p>Líneas, proyectos y publicaciones.</p></div></div></section>'+
+  '<section class="section grid2"><div><div class="sectionhead"><div><h2>Actualidad</h2><p>Contenido ficticio para validar interfaz.</p></div></div><div class="list">'+
+  '<div class="item"><div class="thumb"></div><div><span class="badge">Noticia</span><h4>Actividades académicas de la Facultad</h4><small>Contenido demostrativo · Facultad</small></div></div>'+
+  '<div class="item"><div class="thumb"></div><div><span class="badge">Evento</span><h4>Jornada académica interdisciplinaria</h4><small>Contenido demostrativo · Auditorio central</small></div></div></div></div>'+
+  '<div><div class="sectionhead"><div><h2>Documentos</h2><p>Acceso a información oficial.</p></div></div><div class="card"><h3>Repositorio institucional</h3><p>Documentos académicos y administrativos de consulta pública.</p></div></div></section>';
+}
+function schoolHome(){
+  return hero()+
+  '<section class="section"><div class="sectionhead"><div><h2>Información de '+school+'</h2><p>Componentes prioritarios del micrositio.</p></div></div><div class="grid4">'+
+  '<div class="card"><span class="badge">Académico</span><h3>Currícula</h3><p>Planes de estudio vigentes y anteriores.</p></div>'+
+  '<div class="card"><span class="badge">Académico</span><h3>Horarios</h3><p>Año, semestre, ciclo y grupo.</p></div>'+
+  '<div class="card"><span class="badge">Personas</span><h3>Docentes y autoridades</h3><p>Directorio de la Escuela.</p></div>'+
+  '<div class="card"><span class="badge">Comunidad</span><h3>Egresados</h3><p>Seguimiento y oportunidades.</p></div></div></section>'+
+  '<section class="section grid2"><div class="card"><h3>Actualidad de la Escuela</h3><p>Noticias, eventos y oportunidades gestionados de manera autónoma.</p></div><div class="card"><h3>Convenios y logros</h3><p>Información institucional destacada del micrositio.</p></div></section>';
+}
+function tabs(names,texts){
+  return '<section class="section"><div class="tabs">'+names.map((n,i)=>'<button class="'+(i===0?'active':'')+'" onclick="switchSub(this,'+i+')">'+n+'</button>').join('')+'</div>'+
+  names.map((n,i)=>'<div id="sub'+i+'" class="panel '+(i===0?'show':'')+'"><div class="infobox"><h3>'+n+'</h3><p>'+texts[i]+'</p><div class="grid2"><div class="card"><b>Vista pública</b><p>Contenido organizado para visitantes y comunidad universitaria.</p></div><div class="card"><b>Administración</b><p>Registro, edición y actualización desde el panel correspondiente.</p></div></div></div></div>').join('')+'</section>';
+}
+function switchSub(btn,i){
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));document.getElementById('sub'+i).classList.add('show');
+}
+function facultySection(){
+  if(current==='La Facultad')return hero()+tabs(['Escuelas profesionales','Identidad','Recursos','Autoridades','Convenios'],['Directorio de las cinco Escuelas Profesionales.','Historia, misión y visión, valores, objetivos y perfiles.','Laboratorios y biblioteca institucional.','Autoridades y directorio de Facultad.','Convenios institucionales vigentes.']);
+  if(current==='Formación')return hero()+tabs(['Currículas','Horarios','Docentes','Documentos académicos'],['Planes de estudio de consulta.','Horarios por periodo académico.','Directorio docente.','Documentación académica.']);
+  if(current==='Actualidad')return hero()+tabs(['Noticias','Eventos','Oportunidades','Investigación'],['Noticias institucionales y escolares.','Eventos vigentes.','Convocatorias y oportunidades.','Líneas, proyectos y publicaciones.']);
+  return hero()+tabs(['Egresados','Directorio','Documentos','Contacto'],['Seguimiento de egresados y oportunidades.','Personas e información institucional.','Repositorio documental.','Canales de atención y redes.']);
+}
+function schoolSection(){
+  if(current==='La Escuela')return hero()+tabs(['Identidad','Recursos','Autoridades','Convenios','Logros'],['Historia, misión y visión, valores, objetivos y perfiles.','Laboratorios y biblioteca.','Autoridades y responsables de la Escuela.','Convenios vinculados a la Escuela.','Logros y reconocimientos.']);
+  if(current==='Formación')return hero()+tabs(['Currícula','Horarios','Docentes','Documentos'],['Planes actuales y anteriores.','Horarios filtrables por periodo, ciclo y grupo.','Plana docente.','Documentos académicos.']);
+  if(current==='Actualidad')return hero()+tabs(['Noticias','Eventos','Oportunidades','Investigación'],['Publicaciones de la Escuela.','Eventos propios.','Convocatorias y oportunidades.','Líneas, proyectos y publicaciones.']);
+  return hero()+tabs(['Egresados','Bolsa de oportunidades','Redes sociales','Contacto'],['Seguimiento básico de egresados.','Oportunidades laborales y de prácticas.','Enlaces oficiales.','Información de contacto de la Escuela.']);
+}
+function render(){document.getElementById('screen').innerHTML=current==='Inicio'?(mode==='faculty'?facultyHome():schoolHome()):(mode==='faculty'?facultySection():schoolSection())}
+function searchNow(){
+  const q=document.getElementById('searchBox').value.trim()||'historia';
+  document.getElementById('screen').innerHTML=hero()+'<section class="section"><div class="sectionhead"><div><h2>Resultados para “'+q+'”</h2><p>Búsqueda unificada demostrativa.</p></div></div><div class="list"><div class="item"><div class="thumb"></div><div><span class="badge">Institucional</span><h4>Historia e identidad institucional</h4><small>Facultad de Ciencias Sociales</small></div></div><div class="item"><div class="thumb"></div><div><span class="badge">Documento</span><h4>Plan de estudios y recursos académicos</h4><small>Resultados filtrables por escuela y tipo</small></div></div></div></section>';
+}
+function openAdmin(){document.getElementById('publicApp').style.display='none';document.getElementById('adminApp').classList.add('show');renderSide();renderAdmin()}
+function closeAdmin(){document.getElementById('adminApp').classList.remove('show');document.getElementById('publicApp').style.display='block'}
+function renderSide(){
+  const n=document.getElementById('sideNav');n.innerHTML='';
+  adminTabs.forEach(x=>{const b=document.createElement('button');b.textContent=x;b.className=x===adminTab?'active':'';b.onclick=()=>{adminTab=x;renderSide();renderAdmin()};n.appendChild(b)})
+}
+function renderAdmin(){
+  document.getElementById('adminTitle').textContent=adminTab;
+  const scope=document.getElementById('scope').value,c=document.getElementById('adminContent');
+  if(adminTab==='Resumen'){c.innerHTML='<div class="notice">Datos ficticios. Este MVP no consulta ni modifica información real.</div><div class="stats"><div class="stat"><small>Publicaciones</small><b>18</b></div><div class="stat"><small>Eventos</small><b>6</b></div><div class="stat"><small>Oportunidades</small><b>4</b></div><div class="stat"><small>Difusión</small><b>3</b></div></div><section class="section"><table><tr><th>Contenido</th><th>Origen</th><th>Estado</th><th>Difusión</th></tr><tr><td>Jornada académica</td><td>'+scope+'</td><td><span class="status pub">Publicado</span></td><td><span class="status pending">Pendiente</span></td></tr><tr><td>Convocatoria de prácticas</td><td>'+scope+'</td><td><span class="status pub">Publicado</span></td><td>—</td></tr><tr><td>Actualización de currícula</td><td>'+scope+'</td><td><span class="status draft">Borrador</span></td><td>—</td></tr></table></section>';return}
+  if(adminTab==='Difusión'){c.innerHTML='<div class="notice">La publicación original de una Escuela no depende de la aprobación de difusión.</div><table><tr><th>Solicitud</th><th>Origen</th><th>Destino</th><th>Estado</th></tr><tr><td>Noticia académica</td><td>Historia</td><td>Facultad</td><td><span class="status pending">Pendiente</span></td></tr><tr><td>Evento cultural</td><td>Turismo</td><td>Facultad</td><td><span class="status pub">Aprobada</span></td></tr></table>';return}
+  if(adminTab==='Identidad y recursos'){c.innerHTML='<div class="grid2"><div class="form"><h3>Identidad · '+scope+'</h3><div class="field"><label>Sección</label><select><option>Historia</option><option>Misión y visión</option><option>Valores</option><option>Objetivos</option><option>Perfiles</option></select></div><div class="field"><label>Contenido</label><textarea>Contenido demostrativo editable desde administración.</textarea></div><button class="btn primary">Guardar cambios</button></div><div class="form"><h3>Recursos</h3><div class="field"><label>Tipo</label><select><option>Laboratorios</option><option>Biblioteca</option></select></div><div class="field"><label>Descripción</label><textarea>Información demostrativa del recurso institucional.</textarea></div><button class="btn primary">Guardar recurso</button></div></div>';return}
+  if(adminTab==='Egresados'){c.innerHTML='<div class="notice">Vista de seguimiento con información ficticia; no contiene datos personales reales.</div><table><tr><th>Código</th><th>Escuela</th><th>Situación</th><th>Perfil</th></tr><tr><td>EGR-001</td><td>'+(scope==='Facultad'?'Historia':scope)+'</td><td>Empleado</td><td>Actualizado</td></tr><tr><td>EGR-002</td><td>'+(scope==='Facultad'?'Turismo':scope)+'</td><td>Buscando oportunidad</td><td>Pendiente</td></tr></table>';return}
+  c.innerHTML='<div class="form"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div><h3>Gestionar '+adminTab+'</h3><p style="color:var(--muted)">Ámbito: '+scope+'</p></div><button class="btn primary">Crear nuevo</button></div><table><tr><th>Título</th><th>Estado</th><th>Origen</th><th>Acción</th></tr><tr><td>Registro demostrativo 01</td><td><span class="status pub">Publicado</span></td><td>'+scope+'</td><td>Editar</td></tr><tr><td>Registro demostrativo 02</td><td><span class="status draft">Borrador</span></td><td>'+scope+'</td><td>Editar</td></tr></table></div>';
+}
+renderNav();render();
+</script>
+</body>
+</html>
